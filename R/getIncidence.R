@@ -137,7 +137,7 @@ inc2xts <- function(incList) {
   df <- sapply(unlist(incList,recursive=FALSE), "[[", 2)
 
   #Create xts object
-  xts <- xts(x=df, order.by=incList[[1]][[1]]$date)
+  xts <- xts::xts(x=df, order.by=incList[[1]][[1]]$date)
 
   return(xts)
 }

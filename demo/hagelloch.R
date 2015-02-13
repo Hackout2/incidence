@@ -34,8 +34,8 @@ hagellochSpatialPolygons <- function() {
 }
 
 #Compute SpatialPolygons object for the Hagelloch households.
-hagelloch.sp <- hagellochSpatialPolygons()
-plot(hagelloch.sp,axes=TRUE,xlab="x (m)",ylab="y (m)",main="Hagelloch household locations")
+hhMap <- hagellochSpatialPolygons()
+plot(hhMap,axes=TRUE,xlab="x (m)",ylab="y (m)",main="Hagelloch household locations")
 
 #Convert linelist to a weekly time series using the linelist2xts function
 xts <- linelist2xts(formula=ERU ~ locationFactor, dateProjFun=monday, data=hagelloch.obk@individuals)
@@ -43,7 +43,7 @@ dim(xts)
 
 #Convert xts object to sts class.
 #ToDo: Have this as a converter function in the surveillance package.
-sts <- new("sts", observed=as.matrix(hagelloch$xts), epoch=as.numeric(index(hagelloch$xts)), epochAsDate=TRUE, map=hagelloch$map)
+sts <- new("sts", observed=as.matrix(xts), epoch=as.numeric(index(xts)), epochAsDate=TRUE, map=hhMap)
 #Show the sts -- see ?stsplot for details
 plot(sts, xlab="Date of rash (week)",
      xaxis.tickFreq = list("%V" = atChange, "%m" = atChange,"%G" = atChange),
