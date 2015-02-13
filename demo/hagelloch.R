@@ -4,7 +4,7 @@ library("surveillance")
 library("animation")
 
 #Show hagelloch data
-library("linelist2ts")
+library("incidence")
 data("hagelloch.obk")
 
 
@@ -34,7 +34,7 @@ hagelloch <- hagellochLocations()
 plot(hagelloch$map,axes=TRUE)
 
 #Convert xts object to sts class
-sts <- new("sts", observed=as.matrix(hagelloch$xts), epoch=as.numeric(index(hagelloch$xts)), epochAsDate=TRUE, map=map)
+sts <- new("sts", observed=as.matrix(hagelloch$xts), epoch=as.numeric(index(hagelloch$xts)), epochAsDate=TRUE, map=hagelloch$map)
 plot(sts, xlab="Date of rash (week)",
      xaxis.tickFreq = list("%V" = atChange, "%m" = atChange,"%G" = atChange),
      xaxis.labelFreq = list("%V" = atChange),
