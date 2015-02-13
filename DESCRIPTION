@@ -5,10 +5,10 @@ Authors@R: c(MH=person("Michael", "Höhle",
                 email="hoehle@math.su.se",
                 role = c("aut", "cre")),
 	           TJ=person("Thibaut", "Jombart",
-                email=thibautjombart@gmail.com",
+                email="thibautjombart@gmail.com",
                 role = c("aut", "cre")))
 Author: Thibaut Jombart, Michael Höhle
-Maintainer: tba
+Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
 Description: This package provides resources for computing and visualising incidence time series from outbreak linelist data.
 Depends: R (>= 3.1.2), data.table
 License: GPL-2
