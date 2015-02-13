@@ -2,7 +2,7 @@
 % Please edit documentation in R/getIncidence.R
 \name{linelist2xts}
 \alias{linelist2xts}
-\title{Simple aggregator based on the data.table function}
+\title{Simple Date based aggregation based on the data.table function.}
 \usage{
 linelist2xts(formula, dateProjFun = identity, dRange = NULL, data)
 }
@@ -20,6 +20,14 @@ a column of class Dates and RHSVar is a column containing a factor variable}
 xts time series
 }
 \description{
-Simple aggregator based on the data.table function
+The function allows to split by a single factor variable. More factors
+as well as factor interactions are currently not supported.
+}
+\details{
+The formula has to be of the type LHSVar ~ RHSVar, where LHSVar is
+a column of class Dates and RHSVar is a column containing a factor variable.
+Currently, the formula is unrwapped manually. A better solution is to use
+formula syntax. Note: A multivariate time series for all levels of RHSVar
+(including NA if present) is generated.
 }
 

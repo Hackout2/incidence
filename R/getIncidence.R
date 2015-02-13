@@ -142,7 +142,16 @@ inc2xts <- function(incList) {
   return(xts)
 }
 
-#' Simple aggregator based on the data.table function
+#' Simple Date based aggregation based on the data.table function.
+#'
+#' The function allows to split by a single factor variable. More factors
+#' as well as factor interactions are currently not supported.
+#'
+#' @details The formula has to be of the type LHSVar ~ RHSVar, where LHSVar is
+#' a column of class Dates and RHSVar is a column containing a factor variable.
+#' Currently, the formula is unrwapped manually. A better solution is to use
+#' formula syntax. Note: A multivariate time series for all levels of RHSVar
+#' (including NA if present) is generated.
 #'
 #' @param formula Formula of type LHSVar ~ RHSVar, where LHSVar is
 #'                 a column of class Dates and RHSVar is a column containing a factor variable
@@ -153,11 +162,16 @@ inc2xts <- function(incList) {
 #' @import data.table
 #' @export
 linelist2xts <- function(formula, dateProjFun=identity, dRange=NULL, data) {
-  #Dirty unwrapping of the formula. Use boxplot way.
+  #Dirty unwrapping of the formula. ToDo: Use boxplot way.
   if (formula[[1]] != "~") stop("Not a valid formula.")
   LHSVar <- as.character(formula[[2]])
-  RHSVar <- as.character(formula[[3]])
-  #Check
+  if (length(formula[[3]]==1)) {
+    RHSVar <- as.character(formula[[3]])
+  } else {
+    stop("Only formulas of the form LHSVar ~ RHSVar are handled. No higher terms are allowed.")
+  }
+
+  #Checks. If the RHS is "1" then we employ some tricks.
   if (!class(data[,LHSVar]) == "Date") stop("LHSVar is not a vector of dates.")
   if (RHSVar == "1") {
     data[,RHSVar] <- factor( rep("all", nrow(data), levels=c("all")))
@@ -170,7 +184,9 @@ linelist2xts <- function(formula, dateProjFun=identity, dRange=NULL, data) {
   #Select which date column to do the aggregation by and make a column data
   dt$mydate <- dt[[LHSVar]]
   dt$split <- dt[[RHSVar]]
-  RHSLevels <- levels(dt[[RHSVar]])
+  #Note: Levels does not capture NA's. (if there are any)
+  #RHSLevels <- levels(dt[[RHSVar]])
+  RHSLevels <- names(table(dt[[RHSVar]],useNA="ifany"))
 
   ## data.table of all dates, to fill in incince
   if (is.null(dRange)) {
@@ -181,13 +197,15 @@ linelist2xts <- function(formula, dateProjFun=identity, dRange=NULL, data) {
   dRangeSeq <- unique(dateProjFun(seq.Date(dRange[1], dRange[2], by = 1)))
   emptySeries <- data.table(mydate = dRangeSeq)
 
-
   #Allocate empty result object and build it with cbind
   res <- xts::xts(x=NULL, order.by=dRangeSeq)
 
   for (i in seq_len(length(RHSLevels))) {
-    #Aggregate for each factor level
-    tsWithGaps <- dt[!is.na(mydate) & (split == RHSLevels[i]) , list(freq = .N), by = list(mydate=dateProjFun(mydate))]
+    #Aggregate for each factor level. Note: Instead of ifelse, is it possible to just write
+    #a variant of (dt$split == RHSLevels[i]) and have this work for the level NA as well?
+    splitBool <- ifelse(rep(is.na(RHSLevels[i]),nrow(dt)), is.na(dt$split), dt$split == RHSLevels[i])
+
+    tsWithGaps <- dt[!is.na(mydate) & splitBool, list(freq = .N), by = list(mydate=dateProjFun(mydate))]
 #browser()
 
     #Merge with the empty series
