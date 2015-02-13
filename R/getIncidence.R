@@ -150,6 +150,7 @@ inc2xts <- function(incList) {
 #' @param dRange Vector of length two giving the start and stop dates, the actual range will be range(dateProjFun(dRange)).
 #' @param data data.frame containing the LHSVar RHSVar variables.
 #' @return xts time series
+#' @import data.table
 #' @export
 linelist2xts <- function(formula, dateProjFun=identity, dRange=NULL, data) {
   #Dirty unwrapping of the formula. Use boxplot way.
