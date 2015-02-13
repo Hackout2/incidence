@@ -40,13 +40,13 @@ plot(sts, xlab="Date of rash (week)",
      xaxis.labelFreq = list("%V" = atChange),
      xaxis.labelFormat = "%d-%b", type = observed ~ time, legend.opts=NULL)
 
-#Do an animation
+#Do an animation -- see http://arxiv.org/pdf/1411.0416.pdf
 saveHTML(animate(sts, tps = 1:8, total.args = list()),
          title = "Evolution of the measles epidemic in Hagelloch",
          ani.width = 500, ani.height = 600)
 
 ###Demo using surveillance -- see http://arxiv.org/pdf/1411.0416.pdf
-data("measlesWeserEms")
-saveHTML(animate(measlesWeserEms, tps = 1:52, total.args = list()),
-         title = "Evolution of the measles epidemic in the Weser-Ems region",
-         ani.width = 500, ani.height = 600)
+#data("measlesWeserEms")
+#saveHTML(animate(measlesWeserEms, tps = 1:52, total.args = list()),
+#         title = "Evolution of the measles epidemic in the Weser-Ems region",
+#         ani.width = 500, ani.height = 600)
