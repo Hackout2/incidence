@@ -1,7 +1,6 @@
 #Small demo illustrating how to do manual aggregation using the data.table
 #function. This should allow for more flexible grouping also.
 
-library("linelist2ts")
 library("data.table")
 library("scales")
 library("ggplot2")

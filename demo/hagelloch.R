@@ -4,7 +4,6 @@ library("surveillance")
 library("animation")
 
 #Show hagelloch data
-library("incidence")
 data("hagelloch.obk")
 
 
@@ -30,6 +29,7 @@ hagellochLocations <- function() {
   return(list(xts=xts,map=map))
 }
 
+#Compute incidence time series per
 hagelloch <- hagellochLocations()
 plot(hagelloch$map,axes=TRUE)
 

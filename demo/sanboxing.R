@@ -1,6 +1,3 @@
-#Load the package itself.
-library("linelist2ts")
-
 #Load extra libraries for the visualization
 library("dygraphs")
 library("RColorBrewer")
