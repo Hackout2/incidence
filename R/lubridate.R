@@ -20,3 +20,12 @@ wdaymon <- function(date) { lubridate::wday(date - 1) }
 #' @return vector of dates
 #' @export
 monday  <- function(date) { date - wdaymon(date) + 1}
+
+#' Function to get the first of the month.
+#'
+#' @param date vector of dates
+#' @return vector of dates containing the corresponding mondays
+#' @note Function could have been written with pure strptime commands in case
+#' one does not want the lubridate dependencies.
+#' @export
+firstOfMonth <- function(date) { date - lubridate::mday(date) + 1}
