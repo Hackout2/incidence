@@ -2,6 +2,7 @@
 
 export(get.incidence2)
 export(inc2xts)
+export(linelist2xts)
 export(mapIncidence)
 export(monday)
 export(plotIncidence)
