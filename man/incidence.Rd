@@ -11,8 +11,10 @@ This package provides functions for computing and plotting incidence data from o
 \section{Available functions include}{
 
  \itemize{
- \item{plotIncidence}{Plot incidence time series using histograms}
- \item{mapIncidence}{Visualise incidence in space and time using animations}
+ \item{\link{get.incidence2}: }{Extension of OutbreakTools's function \code{get.incidence}}
+ \item{\link{linelist2xts}: }{Convert line lists data into xts objects (multivariate time series)}
+ \item{\link{plotIncidence}: }{Plot incidence time series using histograms}
+ \item{\link{mapIncidence}: }{Visualise incidence in space and time using animations}
 }
 }
 
