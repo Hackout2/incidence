@@ -54,7 +54,7 @@ mapIncidence <- function(x, dates, lon, lat, fill.by=NULL, col.pal=0, alpha=.5, 
                          heights=c(0.75, 0.25), ani.width=800, ani.height=ani.width,
                          point.size=5, annot.size=20, xy.annot=FALSE,
                          path=tempdir()) {
- 
+
     ## HANDLE ARGUMENTS ##
     if(is.numeric(dates)) dates <- names(x)[dates]
     if(is.numeric(lon)) lon <- names(x)[lon]
@@ -105,10 +105,10 @@ mapIncidence <- function(x, dates, lon, lat, fill.by=NULL, col.pal=0, alpha=.5, 
 
     ## GET MAP MATERIAL ##
     ## get bounding box
-    bound.box <- with(x, c(min(x[,lon],na.rm=TRUE),
-                            min(x[,lat],na.rm=TRUE),
-                            max(x[,lon],na.rm=TRUE),
-                            max(x[,lat],na.rm=TRUE)))
+    bound.box <- c(min(x[,lon],na.rm=TRUE),
+                   min(x[,lat],na.rm=TRUE),
+                   max(x[,lon],na.rm=TRUE),
+                   max(x[,lat],na.rm=TRUE))
 
     ## fectch map
     filename <- paste(path,"ggmapTemp.png",sep="/")
