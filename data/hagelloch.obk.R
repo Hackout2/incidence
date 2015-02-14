@@ -1,4 +1,4 @@
-#Script to generate Hagelloch data
+#Script to generate Hagelloch data.
 
 library("OutbreakTools")
 
@@ -11,6 +11,12 @@ hagelloch.obk <- (function() {
   #Remove the individual, which must have gotten infected for other sources than from the outbreak
   diff(sort(hagelloch.df$ERU))
   hagelloch.df <- hagelloch.df[-which.max(hagelloch.df$ERU),]
+
+  #Add location slot
+  location <- hagelloch.df[,c("x.loc","y.loc")]
+  hagelloch.df$locationFactor <- as.factor(apply(location, 1, paste0, collapse="-"))
+
+  #Check.
   nrow(hagelloch.df)
 
   #Variables with date information in the Hagelloch data.set
@@ -24,13 +30,8 @@ hagelloch.obk <- (function() {
   #Create obkData object
   hagelloch.obk <- methods::new("obkData", individuals=hagelloch.df, records=records)
 
-  #Consistency checks
-  class(foo <- OutbreakTools::get.dates(hagelloch.obk, data="records"))
-  all.equal(hagelloch.obk@records$PRO$date,foo[1:nrow(hagelloch.df)])
-
+  #Done
   return(hagelloch.obk)
 })()
 
-#
-#hagelloch.obk <- create.hagelloch.obk()
 

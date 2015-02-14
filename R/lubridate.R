@@ -8,6 +8,7 @@
 #' @param date - vector of dates
 #' @return vector of numeric with the weekdays (mon=1, sun=7)
 #' @export
+#' @import methods
 wdaymon <- function(date) { lubridate::wday(date - 1) }
 
 #' Function to get the monday of the corresponding week a date belongs to.

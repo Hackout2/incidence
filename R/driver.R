@@ -1,3 +1,17 @@
+#' Interactive time series plot for linelist data.
+#'
+#' The function exports a shiny document containing an interactive histogram or a dygraph of
+#' incidence data, broken down into daily, weekly, monthly chunks.
+#'
+#' @param data - data frame; contains the dates and other variables
+#' @param case.times - string; variable name in the data frame where the dates are stored
+#' @param dropdown - vector of strings; variable names in the data frame to be included in the dropdown menus
+#' @param main.title - string; title of the page
+#' @return The function returns a shiny document containing an interactive histogram or a dygraph of
+#' incidence data, broken down into daily, weekly, monthly chunks.
+#' @author Rolina D. van Gaalen
+#' @export
+
 # --------------------------------------------------------------------------
 # PRELIMINARIES
 # --------------------------------------------------------------------------
@@ -24,7 +38,7 @@ main.title <- "Interactive time series"
 # THE FUNCTION
 # --------------------------------------------------------------------------
 
-driver <- function(main.title, case.times, dropdown) {
+driver <- function(data, case.times, dropdown, main.title) {
 
   drop_ = function(i){
     selectInput(dropdown[i],
@@ -122,5 +136,5 @@ driver <- function(main.title, case.times, dropdown) {
 
 }
 
-driver(main.title, case.times="ERU", dropdown=c("Sex", "Age"))
-driver(main.title, case.times="ERU", dropdown=NULL)
+driver(data=df, case.times="ERU", dropdown=c("Sex", "Age"), main.title)
+driver(data=df, case.times="ERU", dropdown=NULL, main.title)
