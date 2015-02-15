@@ -29,7 +29,8 @@ names(df)[names(df)=="C"] <- "Complications"
 df_temp <- data.frame(table(factor(as.character(df$ERU), levels=as.character(seq(min(df$ERU), max(df$ERU), by=1)))))
 names(df_temp) <- c("ERU", "total.incidence")
 df_temp$date <- as.Date(df_temp$ERU, origin="1970-01-01")
-x = dygraph(xts(df_temp$total.incidence, as.Date(df_temp$ERU, format='%m/%d/%Y')), main = "")
+x = dygraph(xts(df_temp$total.incidence, as.Date(df_temp$date, format='%m/%d/%Y')), main = "")
+x2 = dygraph(xts(df_temp$total.incidence, as.Date(df_temp$date, format='%m/%d/%Y')), main = "")
 
 # --- USER INFERFACE
 ui = shinyUI(fluidPage(
@@ -37,7 +38,7 @@ ui = shinyUI(fluidPage(
   tabsetPanel(
     tabPanel("Non-interactive histogram", plotOutput("plot")),
     tabPanel("Interactive DY Graph",
-            dygraphOutput("dyplot"),
+            dygraphOutput("dyplot", height=300),
             hr(),
             fluidRow(
               column(3,
@@ -55,7 +56,10 @@ ui = shinyUI(fluidPage(
                                  choices = c("None", "Sex", "Age", "Class", "Complications"),
                                  selected = "None")),
               column(6, offset = 1,
-                     plotOutput("plot2")))))
+                     plotOutput("plot2")))),
+    tabPanel("Interactive DY Point Graph", dygraphOutput("dyplot_point", height=300),
+             hr(),
+             plotOutput("plot_point")))
 ))
 
 # --- SERVER
@@ -76,24 +80,42 @@ server = shinyServer(function(input, output, session){
     if (!is.null(input$mydata)) {
       range <- unique(na.omit(as.numeric(unlist(strsplit(unlist(input$mydata), "[^0-9.-]+")))))
 
-     facet.row <- input$facet_row
-     facet.col <- input$facet_col
+      facet.row <- input$facet_row
+      facet.col <- input$facet_col
 
-     if (input$facet_row == "None") facet.row <- "."
-     if (input$facet_col == "None") facet.col <- "."
+      if (input$facet_row == "None") facet.row <- "."
+      if (input$facet_col == "None") facet.col <- "."
 
-     if ((input$facet_col != "None") | (input$facet_row != "None")) {
-       ggplot(df[df$ERU>range[1] & df$ERU<range[2],], aes_string(x=input$x)) +
-         facet_grid(as.formula(paste(facet.row, "~", facet.col))) +
-         geom_histogram(binwidth=1) +
-         labs(title = " ", y="Number of cases")
-       # geom_density()
-     } else {
-       ggplot(df.subset[df$ERU>range[1] & df$ERU<range[2],], aes_string(x=input$x)) +
-         geom_histogram(binwidth=1) +
-         labs(title = " ", y = "Number of cases")}}
+      if ((input$facet_col != "None") | (input$facet_row != "None")) {
+        ggplot(df[df$ERU>range[1] & df$ERU<range[2],], aes_string(x=input$x)) +
+          facet_grid(as.formula(paste(facet.row, "~", facet.col))) +
+          geom_histogram(binwidth=1) +
+          labs(title = " ", y="Number of cases")
+        # geom_density()
+      } else {
+        ggplot(df[df$ERU>=range[1] & df$ERU<=range[2],], aes_string(x=input$x)) +
+          geom_histogram(binwidth=1) +
+          labs(title = " ", y = "Number of cases")}}
     #else plot(1:10, main="")
   )
+
+  output$dyplot_point = renderDygraph({
+    x2$x$attrs$clickCallback = htmlwidgets::JS(
+      "function(e, x, point){
+         Shiny.onInputChange('mydata_point', JSON.stringify(point))}")
+    x2 })
+
+  output$plot_point = renderPlot(
+    if (!is.null(input$mydata_point)) {
+      point <- unique(na.omit(as.numeric(unlist(strsplit(unlist(input$mydata_point), "[^0-9.-]+")))))
+      point <- round(point[3]/(24*60*60*1000))
+      ggplot(df[df$ERU == point,], aes_string(x="Age")) +
+        facet_grid(as.formula(paste("~", "Sex"))) +
+        geom_histogram(binwidth=1) +
+        labs(title = " ", y = "Number of cases")
+
+    })
+
 })
 
 runApp(list(ui = ui, server = server))
