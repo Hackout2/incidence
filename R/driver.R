@@ -24,7 +24,7 @@ library(shiny)
 library(dygraphs)
 library("linelist2ts")
 
-# --- Load the data
+# --- Load the data and make it suitable for the program
 data(hagelloch.obk)
 df <- hagelloch.obk@individuals
 names(df)[names(df)=="SEX"] <- "Sex"

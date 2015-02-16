@@ -11,7 +11,6 @@
 # To do: merge with driver.R
 # Click and zoom
 # Click but don't zoom
-# Point click
 
 # --- Define required libraries
 library(dygraphs)
