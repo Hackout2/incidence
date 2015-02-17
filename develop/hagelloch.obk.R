@@ -1,4 +1,8 @@
-#Script to generate Hagelloch data.
+#' Script to generate Hagelloch data from the surveillance package.
+#'
+#' @author Michael Höhle
+#' 
+
 
 library("OutbreakTools")
 
@@ -35,3 +39,11 @@ hagelloch.obk <- (function() {
 })()
 
 
+######################################################################
+# Function doing the work.
+######################################################################
+
+doIt <- function() {
+  source("hagelloch.obk.R")
+  save(file="../data/hagelloch.obk.RData", list=c("hagelloch.obk"))
+}

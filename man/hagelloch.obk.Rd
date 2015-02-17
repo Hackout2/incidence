@@ -51,17 +51,19 @@
 hagelloch.obk
 }
 \description{
-Small converter function to take the hagelloch.df data.frame
-available in the surveillance package and make an obkData object
-out of it.
+The hagelloch.df data.frame available in the surveillance package
+is converted into an object of obkData. Only the individuals slot
+of the obkData object is populated.
 }
 \details{
-This function is not really one you would put in a package.
-Instead, the function would be called for it's output. See the surveillance package
-for a description of the data.
+See the surveillance package Hagelloch data
+\code{\link[surveillance]{hagelloch}} for a description of the
+data.  For developers: The conversion is done by a conversion
+function \code{hagelloch.obk.R} found in the develop directory of the
+package.
 }
 \author{
-Michael Höhle <http://www.math.su.se/~hoehle>
+Michael H\enc{ö}{oe}hle <http://www.math.su.se/~hoehle>
 }
 \keyword{data}
 
