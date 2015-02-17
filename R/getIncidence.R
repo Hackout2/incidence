@@ -26,7 +26,6 @@ setGeneric("get.incidence2", function(x, ...) standardGeneric("get.incidence2"))
 #' @param doBy A character list of factor variables in the individuals slot to compute the ts for.
 #' @param ...  See obkData::get.incidence
 #' @export
-#' @import surveillance
 setMethod("get.incidence2", "obkData", function(x, data, where=NULL, val.min=NULL, val.max=NULL, val.kept=NULL, regexp=NULL,
                                                from=NULL, to=NULL, interval=1, add.zero=TRUE, doBy=NULL, ...){
   ## HANDLE ARGUMENTS ##
