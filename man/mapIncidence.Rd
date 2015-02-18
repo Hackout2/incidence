@@ -71,7 +71,7 @@ This function provides advanced plotting facilities for incidence time series us
 data(zombie_outbreak)
 mapIncidence(head(zombie_outbreak,1000), 3,
              "x.coord","y.coord", fill.by="gender",
-              zoom=11)
+              zoom=15)
 
 }
 }
