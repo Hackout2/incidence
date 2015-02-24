@@ -69,9 +69,9 @@ This function provides advanced plotting facilities for incidence time series us
 \dontrun{
 
 data(zombie_outbreak)
-mapIncidence(head(zombie_outbreak,1000), 3,
-             "x.coord","y.coord", fill.by="gender",
-              zoom=15)
+mapIncidence(head(zombie_outbreak,20000), 3,
+            "x.coord","y.coord", fill.by="gender",
+            jitter=0, zoom=15)
 
 }
 }

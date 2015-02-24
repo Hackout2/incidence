@@ -30,16 +30,16 @@
 #'
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
 #'
-#' @export
 #' @import ggplot2 scales ggmap gridExtra OutbreakTools animation
+#' @export
 #'
 #' @examples
 #' \dontrun{
 #'
 #' data(zombie_outbreak)
-#' mapIncidence(head(zombie_outbreak,1000), 3,
-#'              "x.coord","y.coord", fill.by="gender",
-#'               zoom=15)
+#' mapIncidence(head(zombie_outbreak,20000), 3,
+#'             "x.coord","y.coord", fill.by="gender",
+#'             jitter=0, zoom=15)
 #'
 #' }
 #'

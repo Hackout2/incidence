@@ -12,9 +12,9 @@ Authors@R: c(MH=person("Michael", "Höhle",
 Author: Thibaut Jombart, Michael Höhle, Rolina van Gaalen
 Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
 Description: This package provides resources for computing and visualising incidence time series from outbreak linelist data.
-Depends: R (>= 3.1.2)
+Depends: R (>= 3.1.2), ggplot2
 License: GPL-2
 LazyData: true
-Imports: ggplot2, scales, ggmap, gridExtra, animation, lubridate, methods, OutbreakTools, data.table, surveillance
+Imports: scales, ggmap, gridExtra, animation, lubridate, methods, OutbreakTools, data.table, surveillance
 Suggests: testthat, zoo, xts
 Encoding: UTF-8
