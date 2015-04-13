@@ -1,0 +1,66 @@
+---
+title: "Computation and Visualisation of Incidence from Line Lists"
+author: "Thibaut Jombart, Michael Höhle, Rolina van Gaalen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Computation and Visualisation of Incidence from Line Lists.}
+ \usepackage[utf8]{inputenc}
+---
+
+
+```{r setup, echo=FALSE}
+# set global chunk options: images will be 7x5 inches
+knitr::opts_chunk$set(fig.width=7, fig.height=10, fig.path="figs/")
+options(digits = 4)
+``
+
+*incidence*: Computation and Visualisation of Incidence from Line Lists
+=======================================================================
+This package provides resources for incidence computation and visualisation based on outbreak line-lists. These resources include:
+- get.incidence2: extensions of the OutbreakTools::get.incidence function to allow for doBy statements and conversion to xts/zoo objects
+- linelist2xts: takes a linelist in a dataframe and aggregates in flexible fashion using LHSVar ~ RHSVar, with the dates being 'massaged' by a date projection function (e.g. to boil down to monday of the ISO week, start of the month, etc)
+- plotIncidence: plot incidence as histograms
+- mapIncidence: animate incidence in space and time using maps and time series
+- data: Hagelloch 1861 measles outbreak (as obkData object)
+
+
+Using the *incidence* package
+-------------
+To install it: 
+```r
+library(devtools)
+install_github("Hackout2/incidence")
+```
+
+Examples of the main functions:
+```r
+## try plotIncidence
+library("incidence")
+example("plotIncidence")
+
+## try mapIncidence 
+head(zombie_outbreak)
+mapIncidence(head(zombie_outbreak,5000), 3, 
+             "x.coord","y.coord", fill.by="gender", 
+             zoom=12)
+
+#Get the epi curve for the Hagelloch data and visualize using
+#the dygraphs package
+library("xts")
+data("hagelloch.obk")
+sts.xts <- inc2xts(get.incidence2(hagelloch.obk, "timeERU", doBy=c("SEX"), add.zero=FALSE))
+library("dygraphs")
+dg <- dygraph(sts.xts, main = "Hagelloch") %>%
+  dyRangeSelector(dateWindow = range(index(sts.xts)))
+dg
+
+#Demo of the linelist2xts function
+demo("incidence", package="incidence",ask=TRUE)
+
+#Show conversion from linelist to time series animate using 
+#the surveillance package.
+demo("hagelloch", package="incidence")
+
+```
