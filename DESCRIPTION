@@ -15,6 +15,7 @@ Description: This package provides resources for computing and visualising incid
 Depends: R (>= 3.1.2), ggplot2
 License: GPL-2
 LazyData: true
-Imports: scales, ggmap, gridExtra, animation, lubridate, methods, OutbreakTools, data.table, surveillance
-Suggests: testthat, zoo, xts
+Imports: scales, ggmap, gridExtra, animation, lubridate, methods, OutbreakTools, data.table
+Suggests: testthat, zoo, xts, knitr
 Encoding: UTF-8
+VignetteBuilder: knitr
