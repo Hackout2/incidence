@@ -1,5 +1,5 @@
 ^\.travis\.yml$
-^\.git
-^develop
-
-
+README.Rmd
+~.tar.gz$
+cran-comments.Rmd
+cran-comments.md

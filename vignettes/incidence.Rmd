@@ -4,7 +4,7 @@ author: "Thibaut Jombart, Michael Höhle, Rolina van Gaalen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteEngine{knitr::knitr}
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Computation and Visualisation of Incidence from Line Lists.}
  \usepackage[utf8]{inputenc}
 ---
