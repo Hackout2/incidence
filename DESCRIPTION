@@ -1,17 +1,17 @@
 Package: incidence
 Title: Computation and Visualisation of Incidence from Line Lists
 Version: 0.0.0.9000
-Authors@R: c(MH=person("Michael", "Höhle",
-                email="hoehle@math.su.se",
-                role = c("aut")),
-	        TJ=person("Thibaut", "Jombart",
+Authors@R: c(TJ=person("Thibaut", "Jombart",
                 email="thibautjombart@gmail.com",
                 role = c("aut", "cre")),
+                MH=person("Michael", "Höhle",
+                email="hoehle@math.su.se",
+                role = c("aut")),
 	        RvG=person("Rolina", "van Gaalen",
                 role = c("aut")))
 Author: Thibaut Jombart, Michael Höhle, Rolina van Gaalen
 Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
-Description: This package provides resources for computing and visualising incidence time series from outbreak linelist data.
+Description: Resources for computing and visualising incidence time series from outbreak linelist data.
 Depends: R (>= 3.1.2), ggplot2
 License: GPL-2
 LazyData: true
